@@ -58,7 +58,7 @@ This document provides a comprehensive list of the components used by Team Jerry
 * **Mounting Hardware:** (Screws, nuts, standoffs, spacers, zip ties, double-sided tape)
   * **Purpose:** Used for securely fastening all components onto the chassis and PCB, ensuring structural integrity and preventing movement during high-speed maneuvers.
 
-## 7. Optional/Advanced Components
+## 6. Optional/Advanced Components
 
 * **Buzzer / LEDs:**
   * **Purpose:** Provide auditory and/or visual feedback during operation, useful for status indications (e.g., maze solved, error codes, power status) and debugging.
