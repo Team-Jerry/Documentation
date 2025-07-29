@@ -1,79 +1,64 @@
+# Team Jerry - Micro Mouse Component Overview
 
-# Team Jerry - Micro Mouse Components
+This document provides a comprehensive list of the components used by Team Jerry for the Micro Mouse project, outlining their purpose and specific selections.
 
-This document outlines the key components used by Team Jerry for their Micro Mouse project, including essential additional items for a complete and functional robot.
+---
 
-## Sensors:
+## 1. Microcontroller Unit (MCU)
 
-* **Time of Flight (ToF) Sensor:** VL53L0Xv2
+* **ESP32 Wroom**
+  * **Description:** The central processing unit and "brain" of the Micro Mouse. The ESP32 Wroom series is chosen for its powerful dual-core processor, ample General Purpose Input/Output (GPIO) pins, and integrated Wi-Fi and Bluetooth capabilities.
+  * **Purpose:** Processes sensor data, executes advanced navigation algorithms (e.g., maze mapping, pathfinding), controls motor movements, and manages overall robot behavior. Its wireless capabilities offer potential for real-time debugging and data telemetry.
 
-  * *Purpose:* Used for precise distance measurement, crucial for wall detection and navigation within the maze.
-* **Gyroscope:** MPU9250
+## 2. Sensors
 
-  * *Purpose:* Provides angular velocity and orientation data, enabling accurate turns and heading control for the mouse.
+* **Time of Flight (ToF) Sensor: VL53L0Xv2**
+  * **Purpose:** Utilized for precise, absolute distance measurements to detect walls and obstacles within the maze. This is crucial for accurate navigation and mapping.
+* **Gyroscope: MPU9250**
+  * **Purpose:** Provides angular velocity and orientation data, enabling the Micro Mouse to execute precise turns and maintain accurate heading control throughout the maze navigation.
 * **Encoders:**
-
   * **Primary:** Built-in encoders on N20 motors.
-    * *Purpose:* Essential for tracking wheel rotations, allowing for precise odometry and distance traveled calculations.
-  * **Alternative:** AS5600
-    * *Purpose:* A potential substitute for the built-in encoders, offering high-resolution rotary position sensing.
+    * **Purpose:** Essential for tracking the rotational position and speed of each motor shaft. This feedback is critical for precise odometry, allowing the mouse to calculate distance traveled and position within the maze.
+  * **Alternative:** AS5600 Magnetic Rotary Encoder.
+    * **Purpose:** A high-resolution alternative or supplementary encoder for precise rotary position sensing, offering potentially finer control and more accurate odometry.
+* **Infrared (IR) Sensors:** (Typically multiple units, e.g., 2-4 for front and side wall detection).
+  * **Purpose:** Complement the ToF sensor for short-range, highly responsive wall detection and fine-tuning the mouse's alignment within maze cells. These are vital for immediate obstacle avoidance and maintaining a straight path.
 
-## Motors:
+## 3. Motors & Drivers
 
-* **Motors:** N20 with built-in encoders
-  * *Description:* Compact and high-torque geared DC motors, well-suited for the small scale of a micro mouse. The integrated encoders simplify wiring and provide direct feedback for motor control.
-* **Motor Driver:** L293D
-  * *Purpose:* A common H-bridge motor driver IC used to control the direction and speed of the DC motors based on signals from the microcontroller. (Note: More modern and efficient motor drivers like those from Pololu are often preferred for better power efficiency and less heat generation in competitive mice.)
+* **Motors: N20 with built-in encoders**
+  * **Description:** Compact, high-torque geared DC motors selected for their suitability in small-scale robotic applications. The integrated encoders simplify the mechanical design and provide direct feedback for closed-loop motor control.
+* **Motor Driver: L293D Dual H-Bridge IC**
+  * **Purpose:** Controls the direction and speed of the N20 DC motors by converting signals from the ESP32 Wroom into appropriate voltage and current for the motors.
+  * *Note:* While the L293D is a functional choice, more modern motor drivers often offer higher efficiency, lower heat generation, and more precise control, which could be considered for future iterations.
 
-## Core Electronics:
+## 4. Power Supply
 
-* **Microcontroller Unit (MCU):** ESP32 Wroom
-
-  * *Purpose:* The "brain" of the micromouse. The ESP32 Wroom series offers integrated Wi-Fi and Bluetooth, a powerful dual-core processor, and ample GPIOs, making it suitable for complex navigation algorithms, sensor data processing, and potentially wireless debugging/communication. It processes sensor data, executes navigation algorithms (e.g., flood fill), controls the motors, and manages overall robot behavior.
-* **Voltage Regulators:** (e.g., LDOs, Buck Converters)
-
-  * *Purpose:* To provide stable and regulated power at different voltage levels (e.g., 5V for the ESP32 and other components, 3.3V for certain sensors) from the battery supply, protecting sensitive electronics.
-* **Capacitors:** (various types and values)
-
-  * *Purpose:* For decoupling power lines, filtering noise, and smoothing power delivery, especially for motors which can generate electrical noise.
-* **Resistors:** (various values)
-
-  * *Purpose:* For current limiting (e.g., for LEDs in IR emitters), pull-ups/downs, and voltage division.
-
-## Power Supply:
-
-* **Battery:** (e.g., LiPo, Li-ion, NiMH)
-  * *Purpose:* To power all components of the micromouse. High discharge rate and appropriate capacity are important to ensure consistent power to motors, especially during high-speed maneuvers. Common choices are 2S (7.4V) or 3S (11.1V) LiPo batteries.
-* **Battery Connector:** (e.g., XT30, JST)
-  * *Purpose:* For safely connecting the battery to the micromouse's power distribution.
+* **Battery:** (e.g., LiPo, Li-ion, NiMH - Specific type to be determined/listed)
+  * **Purpose:** Provides electrical power to all components of the Micro Mouse. High discharge rate and suitable capacity are critical to deliver consistent power, especially during demanding maneuvers. Common choices are 2S (7.4V) or 3S (11.1V) LiPo batteries.
+* **Battery Connector:** (e.g., XT30, JST - Specific type to be determined/listed)
+  * **Purpose:** Ensures a secure and reliable connection between the battery and the Micro Mouse's power distribution system.
 * **Power Switch:**
-  * *Purpose:* For easily turning the micromouse on and off.
+  * **Purpose:** Allows for safe and convenient power on/off control of the entire robot.
+* **Voltage Regulators:** (e.g., LDOs, Buck Converters - Specific types to be determined/listed)
+  * **Purpose:** Steps down and stabilizes the battery voltage to the required operating voltages for various components (e.g., 5V for the ESP32 and motor driver logic, 3.3V for sensors). This protects sensitive electronics from overvoltage and ensures stable operation.
+* **Capacitors:** (Various types and values - Specific types to be determined/listed)
+  * **Purpose:** Used for decoupling power lines, filtering electrical noise (especially from motors), and smoothing voltage ripples to ensure clean power delivery to all circuits.
+* **Resistors:** (Various values - Specific types to be determined/listed)
+  * **Purpose:** Utilized for current limiting (e.g., for IR LEDs), pull-up/pull-down configurations on digital lines, and voltage division for sensor inputs.
 
-## Mechanical Components:
+## 5. Mechanical Components
 
 * **Chassis:** (Custom-fabricated from materials like acrylic, carbon fiber, aluminum, or 3D-printed)
-  * *Purpose:* The structural frame that holds all components together. It needs to be lightweight, rigid, and provide mounting points for motors, sensors, and the electronics board.
-* **Wheels:** (Rubber or silicone tires are common for good grip)
-  * *Purpose:* To provide traction and allow the mouse to move smoothly within the maze. Wheel diameter affects odometry calculations.
-* **Ball Caster / Skid (3D printed)):**
-  * *Purpose:* To provide a third point of contact for stability, typically at the front or rear, allowing the two driven wheels to handle steering.
+  * **Purpose:** The structural framework that houses and provides mounting points for all electronic and mechanical components. It is designed to be lightweight, rigid, and precisely sized for maze navigation.
+* **Wheels:** (Typically rubber or silicone tires)
+  * **Purpose:** Provide traction and enable the mouse's movement. The wheel diameter directly impacts odometry calculations and overall speed.
+* **Ball Caster / Skid:** (3D Printed)
+  * **Purpose:** Provides a stable third point of contact, typically at the front or rear, allowing the two driven wheels to handle steering and propulsion effectively. Being 3D printed allows for custom geometry and weight optimization.
 * **Mounting Hardware:** (Screws, nuts, standoffs, spacers, zip ties, double-sided tape)
-  * *Purpose:* For securely attaching all components to the chassis.
+  * **Purpose:** Used for securely fastening all components onto the chassis and PCB, ensuring structural integrity and preventing movement during high-speed maneuvers.
 
-## Connectivity and Debugging:
+## 7. Optional/Advanced Components
 
-* **Printed Circuit Board (PCB):** (Custom-designed or protoboard/perfboard)
-  * *Purpose:* To consolidate and connect all electronic components. A custom PCB can significantly reduce size, weight, and improve reliability.
-* **Wires/Cables:** (Various gauges and lengths)
-  * *Purpose:* For electrical connections between components.
-* **Connectors/Headers:** (e.g., JST, Dupont headers)
-  * *Purpose:* For modularity and easy connection/disconnection of sensors, motors, and other peripherals.
-* **Debugging Tools:** (e.g., USB-to-serial converter, oscilloscope, multimeter)
-  * *Purpose:* Essential for testing individual components, diagnosing issues, and monitoring signals during development.
-* **Programming Cable:** (e.g., USB cable for ESP32 Wroom development board)
-  * *Purpose:* To upload firmware and code to the microcontroller.
-
-## Optional/Advanced Components:
-
-* **Buzzer/LEDs:**
-  * *Purpose:* For auditory or visual feedback during operation, debugging, or indicating status (e.g., maze solved, error).
+* **Buzzer / LEDs:**
+  * **Purpose:** Provide auditory and/or visual feedback during operation, useful for status indications (e.g., maze solved, error codes, power status) and debugging.
